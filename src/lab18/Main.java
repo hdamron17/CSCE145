@@ -6,12 +6,14 @@
  *   Referencing this material to any extent without citation is plagiarism.
  */
 
+package lab18;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Lab18 {
-  private static final String FILENAME = "data/grades.txt";
+public class Main {
+  private static final String FILENAME = "data/lab18/grades.txt";
 
   private static final String[] HDRS = {
     "LABS", "LAB REPORTS", "HOMEWORK", "EXAM 1", "EXAM 2",

@@ -6,12 +6,14 @@
  *   Referencing this material to any extent without citation is plagiarism.
  */
 
+package lab19;
+
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Lab19 {
-  private static final String FILENAME = "data/blah.txt";
+public class Main {
+  private static final String FILENAME = "data/lab19/blah.txt";
 
   public static void main(String[] argv) {
     String vowels = "AEIOU";  // List of lowercase vowels

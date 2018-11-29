@@ -4,21 +4,25 @@
 BUILD=build
 SRC=src
 
-LABS=$(patsubst %/,%,$(dir $(wildcard Lab*/Makefile)))
-RUNLABS=$(foreach lab,$(LABS),run$(lab))
-.PHONY: all run $(LABS) run%
+LABS=$(patsubst $(SRC)/lab%,lab%,$(wildcard $(SRC)/*))
+RUNLABS=$(patsubst lab%,run%,$(LABS))
+
+.PHONY: all $(LABS) $(RUNLABS)
 
 all: $(LABS)
+run: $(RUNLABS)
 
-$(LABS):
-	@echo Entering $@
-	@$(MAKE) -C $@
-	@echo Exiting $@
+$(foreach lab,$(LABS),$(eval $(lab): $(BUILD)/$(lab)/Main.class))
+
+# Pattern rule for compiling from SRC to BUILD
+$(BUILD)/%/Main.class: $(SRC)/%/Main.java | $(BUILD)
+	javac -d $(BUILD)/ -sourcepath $(dir $<) $<
 
 $(RUNLABS):
-	@echo Entering $@
-	@$(MAKE) -C $(patsubst run%,%,$@)
-	@$(MAKE) -C $(patsubst run%,%,$@) run
-	@echo Exiting $@
+	java -cp $(BUILD)/ $(patsubst run%,lab%,$@).Main $(args)
 
-run: $(RUNLABS)
+$(BUILD):
+	mkdir -p $@
+
+clean:
+	@rm -rf $(BUILD)/*
