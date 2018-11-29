@@ -3,7 +3,7 @@
 
 BUILD=build
 SRC=src
-MAIN=Lab18
+MAIN=Lab19
 
 all: compile
 .PHONY: all mkbuild
