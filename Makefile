@@ -4,8 +4,8 @@
 BUILD=build
 SRC=src
 
-LABS=$(patsubst $(SRC)/lab%,lab%,$(wildcard $(SRC)/*))
-RUNLABS=$(patsubst lab%,run%,$(LABS))
+LABS=$(patsubst $(SRC)/%,%,$(wildcard $(SRC)/*))
+RUNLABS=$(addprefix run,$(LABS))
 
 .PHONY: all $(LABS) $(RUNLABS)
 
@@ -19,10 +19,10 @@ $(BUILD)/%/Main.class: $(SRC)/%/Main.java | $(BUILD)
 	javac -d $(BUILD)/ -sourcepath $(dir $<) $<
 
 $(RUNLABS):
-	java -cp $(BUILD)/ $(patsubst run%,lab%,$@).Main $(args)
+	java -cp $(BUILD)/ $(patsubst run%,%,$@).Main $(args)
 
 $(BUILD):
 	mkdir -p $@
 
 clean:
-	@rm -rf $(BUILD)/*
+	@rm -rf $(BUILD)
