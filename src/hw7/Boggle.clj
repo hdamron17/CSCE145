@@ -31,7 +31,6 @@
     (>= ni 0) (>= nj 0) (< ni N) (< nj N)
     (not (contains? used [ni nj])))) %)
   (neighbors-2d i j)))
-(defn print-first [dict w] (if (and (not (empty? dict)) (= (first dict) w)) (do (println w) (rest dict)) dict))
 
 ; Gets words in dict which have character c at index i
 (defn subdict [dict i c] (filter #(= (get % i) c) dict))
